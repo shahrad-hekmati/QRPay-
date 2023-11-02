@@ -103,12 +103,6 @@ class QRPaymentApp:
                 # Convert the QR code value to an integer
                 qr_code_value = int(name)
 
-                # Print the current QR code's value for debugging
-                print("Current QR code's value:", qr_code_value)
-
-                # Debug: Print the list of IDs for comparison
-                print("List of IDs from bank.csv:", self.names)
-
                 # Check if the QR code's value is in the list of IDs
                 if qr_code_value in self.names:
                     print(f"'{qr_code_value}' is in the list of IDs in bank.csv")
