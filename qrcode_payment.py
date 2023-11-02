@@ -99,17 +99,26 @@ class QRPaymentApp:
             d = decode(frame)
             for obj in d:
                 name = d[0].data.decode()
-                self.names = [name for name in self.names]
-                
-                # Print some debugging information about the extracted 'name'
-                if name in self.names:
-                    self.payee = name
+
+                # Convert the QR code value to an integer
+                qr_code_value = int(name)
+
+                # Print the current QR code's value for debugging
+                print("Current QR code's value:", qr_code_value)
+
+                # Debug: Print the list of IDs for comparison
+                print("List of IDs from bank.csv:", self.names)
+
+                # Check if the QR code's value is in the list of IDs
+                if qr_code_value in self.names:
+                    print(f"'{qr_code_value}' is in the list of IDs in bank.csv")
+                    self.payee = qr_code_value
                     self.video.release()
                     cv2.destroyAllWindows()
                     self.cap = False
-
-                    # Open the payment page after detecting the QR code
                     self.open_payment_page(self.payee)
+                else:
+                    print(f"'{qr_code_value}' is not in the list of IDs in bank.csv")
 
             cv2.imshow("QRcode payment", frame)
             key = cv2.waitKey(1)
